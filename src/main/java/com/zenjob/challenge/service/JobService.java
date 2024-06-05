@@ -49,4 +49,16 @@ public class JobService {
     public void bookTalent(UUID talent, UUID shiftId) {
         shiftRepository.findById(shiftId).map(shift -> shiftRepository.save(shift.setTalentId(talent)));
     }
+
+    public void cancelJob(UUID jobId) {
+        // Fetch the job with its shifts
+        Job job = jobRepository.findById(jobId)
+            .orElseThrow(() -> new IllegalArgumentException("Job not found"));
+
+        // Delete all shifts associated with the job
+        shiftRepository.deleteAllByJobId(jobId);
+
+        // Delete the job
+        jobRepository.delete(job);
+    }
 }
