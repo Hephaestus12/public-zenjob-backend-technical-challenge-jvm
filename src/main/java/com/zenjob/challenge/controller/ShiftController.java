@@ -2,12 +2,15 @@ package com.zenjob.challenge.controller;
 
 import com.zenjob.challenge.dto.ResponseDto;
 import com.zenjob.challenge.service.JobService;
+import com.zenjob.challenge.service.ShiftService;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ShiftController {
     private final JobService jobService;
+    private final ShiftService shiftService;
 
     @GetMapping(path = "/{jobId}")
     @ResponseBody
@@ -53,6 +57,12 @@ public class ShiftController {
         jobService.bookTalent(shiftId, dto.talent);
     }
 
+    @DeleteMapping("/{shiftId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelShift(@PathVariable UUID shiftId) {
+        shiftService.cancelShift(shiftId);
+    }
+    
     @NoArgsConstructor
     @Data
     private static class BookTalentRequestDto {
