@@ -63,6 +63,12 @@ public class ShiftController {
         shiftService.cancelShift(shiftId);
     }
     
+    @DeleteMapping("/talent/{talentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelShiftsForTalent(@PathVariable UUID talentId) {
+        shiftService.cancelShiftsForTalent(talentId);
+    }
+
     @NoArgsConstructor
     @Data
     private static class BookTalentRequestDto {

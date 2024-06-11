@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface ShiftRepository extends JpaRepository<Shift, UUID> {
     List<Shift> findAllByJobId(UUID jobId);
     void deleteAllByJobId(UUID jobId);  // Custom delete method
+    List<Shift> findAllByTalentId(UUID talentId);
+    void deleteAllByTalentId(UUID talentId);
 }
